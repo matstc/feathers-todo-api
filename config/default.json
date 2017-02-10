@@ -1,0 +1,12 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "mongodb": "mongodb://localhost:27017/todoApi",
+  "public": "../public/",
+  "auth": {
+    "token": {
+      "secret": "UWACFFHCrCzDzZLyledG8YN6q5W3lo1l+KyxjAfszcmzA3l1qf1w9L8w6gqeTM5SARW9kCOFetgeThSanQXO1A=="
+    },
+    "local": {}
+  }
+}
