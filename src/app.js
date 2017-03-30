@@ -19,8 +19,10 @@ const app = feathers();
 app.configure(configuration(path.join(__dirname, '..')));
 
 app.use(compress())
-  .options('*', cors())
-  .use(cors())
+  .options('*', cors()) // enables pre-flight on all routes
+  .use(cors({
+    origin: 'http://localhost:3333',
+  }))
   .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
   .use('/', serveStatic( app.get('public') ))
   .use(bodyParser.json())
