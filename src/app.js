@@ -1,28 +1,31 @@
-'use strict';
+'use strict'
 
-const path = require('path');
-const serveStatic = require('feathers').static;
-const favicon = require('serve-favicon');
-const compress = require('compression');
-const cors = require('cors');
-const feathers = require('feathers');
-const configuration = require('feathers-configuration');
-const hooks = require('feathers-hooks');
-const rest = require('feathers-rest');
-const bodyParser = require('body-parser');
-const socketio = require('feathers-socketio');
-const middleware = require('./middleware');
-const services = require('./services');
+const path = require('path')
+const serveStatic = require('feathers').static
+const favicon = require('serve-favicon')
+const compress = require('compression')
+const cors = require('cors')
+const feathers = require('feathers')
+const configuration = require('feathers-configuration')
+const hooks = require('feathers-hooks')
+const rest = require('feathers-rest')
+const bodyParser = require('body-parser')
+const socketio = require('feathers-socketio')
+const middleware = require('./middleware')
+const services = require('./services')
 
-const app = feathers();
+const app = feathers()
 
-app.configure(configuration(path.join(__dirname, '..')));
+const corsConfig = cors({
+  origin: 'http://localhost:3333',
+  methods: 'GET,PUT,POST,PATCH,DELETE'
+})
+
+app.configure(configuration(path.join(__dirname, '..')))
 
 app.use(compress())
-  .options('*', cors()) // enables pre-flight on all routes
-  .use(cors({
-    origin: 'http://localhost:3333',
-  }))
+  .options('*', corsConfig) // enables pre-flight on all routes
+  .use(corsConfig)
   .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
   .use('/', serveStatic( app.get('public') ))
   .use(bodyParser.json())
@@ -31,6 +34,6 @@ app.use(compress())
   .configure(rest())
   .configure(socketio())
   .configure(services)
-  .configure(middleware);
+  .configure(middleware)
 
-module.exports = app;
+module.exports = app

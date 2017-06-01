@@ -3,7 +3,7 @@ const fetch = require('isomorphic-fetch')
 let todos = []
 const url = path => `http://localhost:3030${path}`
 const log = data => {todos = data.data; console.log(data)}
-const info = message => console.log(`\n\n${message.toUpperCase()}\n----------------------------------------`)
+const info = message => console.log(`\n${message.toUpperCase()}\n----------------------------------------`)
 
 const index = function(){
   info('Getting all todos')
